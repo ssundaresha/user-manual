@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html lang="en" data-style="editorial">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Working with [Your Name]</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=Space+Grotesk:wght@300;400;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ═══════════════════════════════════════
+       STYLE TOGGLE BAR
+       ═══════════════════════════════════════ */
+    .style-toggle {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 12px 16px;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .style-toggle__label {
+      font-family: -apple-system, system-ui, sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-right: 8px;
+    }
+
+    .style-toggle__btn {
+      font-family: -apple-system, system-ui, sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: transparent;
+      color: rgba(255,255,255,0.6);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .style-toggle__btn:hover {
+      border-color: rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.9);
+    }
+
+    .style-toggle__btn.active {
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.3);
+      color: #fff;
+    }
+
+    /* ═══════════════════════════════════════
+       MONOPO LONDON STYLE
+       ═══════════════════════════════════════ */
+    [data-style="monopo"] body {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      background: #000000;
+      color: #ffffff;
+      line-height: 1.16;
+      letter-spacing: 0.15em;
+      -webkit-font-smoothing: antialiased;
+      padding-top: 48px;
+    }
+
+    [data-style="monopo"] .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 25px;
+    }
+
+    [data-style="monopo"] .hero {
+      min-height: calc(100vh - 48px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    [data-style="monopo"] .hero__gradient {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, #cc490c, #ce510b, #cf590b, #d15f0a, #d2660a, #ca7619, #c38428, #bb9136, #aca753, #9ac171, #84dc92, #65faca);
+      opacity: 0.15;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+
+    [data-style="monopo"] .hero__content { position: relative; z-index: 1; }
+
+    [data-style="monopo"] .hero__name {
+      font-size: 45px;
+      font-weight: 700;
+      line-height: 1.0;
+      text-transform: uppercase;
+      margin-bottom: 25px;
+    }
+
+    [data-style="monopo"] .hero__role {
+      font-size: 14px;
+      font-weight: 300;
+      color: #7f7f7f;
+      text-transform: uppercase;
+      margin-bottom: 56px;
+    }
+
+    [data-style="monopo"] .hero__intro {
+      font-size: 17px;
+      font-weight: 300;
+      line-height: 1.5;
+      color: #7f7f7f;
+      max-width: 600px;
+      letter-spacing: 0.05em;
+    }
+
+    [data-style="monopo"] .hero__scroll {
+      position: absolute;
+      bottom: 35px;
+      font-size: 12px;
+      color: #666970;
+      text-transform: uppercase;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    [data-style="monopo"] .section {
+      padding: 111px 0;
+      border-top: 1px solid #666970;
+    }
+
+    [data-style="monopo"] .section__title {
+      font-size: 22px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 56px;
+    }
+
+    [data-style="monopo"] .traits {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 25px;
+    }
+
+    @media (max-width: 700px) {
+      [data-style="monopo"] .traits { grid-template-columns: 1fr; }
+    }
+
+    [data-style="monopo"] .trait {
+      padding: 25px;
+      border: 1px solid #666970;
+      border-radius: 2px;
+    }
+
+    [data-style="monopo"] .trait__icon {
+      width: 32px;
+      height: 32px;
+      margin-bottom: 16px;
+      opacity: 0.6;
+    }
+
+    [data-style="monopo"] .trait__icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: #ffffff;
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    [data-style="monopo"] .trait__label {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    [data-style="monopo"] .trait__desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: #7f7f7f;
+      line-height: 1.5;
+      letter-spacing: 0.03em;
+    }
+
+    [data-style="monopo"] .comm-content p {
+      font-size: 16px;
+      font-weight: 300;
+      color: #7f7f7f;
+      line-height: 1.6;
+      letter-spacing: 0.03em;
+      margin-bottom: 25px;
+      max-width: 700px;
+    }
+
+    [data-style="monopo"] .flags {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+    }
+
+    @media (max-width: 600px) {
+      [data-style="monopo"] .flags { grid-template-columns: 1fr; }
+    }
+
+    [data-style="monopo"] .flag-group__title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 25px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #666970;
+    }
+
+    [data-style="monopo"] .flag-group__title--green { color: #84dc92; }
+    [data-style="monopo"] .flag-group__title--red { color: #cc490c; }
+
+    [data-style="monopo"] .flag-group ul { list-style: none; }
+
+    [data-style="monopo"] .flag-group li {
+      font-size: 14px;
+      font-weight: 300;
+      color: #7f7f7f;
+      padding: 8px 0;
+      line-height: 1.5;
+      letter-spacing: 0.03em;
+      border-bottom: 1px solid rgba(102, 105, 112, 0.3);
+    }
+
+    [data-style="monopo"] .flag-group li:last-child { border-bottom: none; }
+
+    [data-style="monopo"] .emoji-chart {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    [data-style="monopo"] .emoji-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    [data-style="monopo"] .emoji-row__emoji {
+      font-size: 22px;
+      width: 36px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    [data-style="monopo"] .emoji-row__bar-bg {
+      flex: 1;
+      height: 4px;
+      background: rgba(102, 105, 112, 0.3);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    [data-style="monopo"] .emoji-row__bar {
+      height: 100%;
+      border-radius: 2px;
+      background: linear-gradient(90deg, #cc490c, #84dc92);
+    }
+
+    [data-style="monopo"] .emoji-row__label {
+      font-size: 12px;
+      font-weight: 300;
+      color: #7f7f7f;
+      width: 180px;
+      flex-shrink: 0;
+      text-align: right;
+      letter-spacing: 0.03em;
+    }
+
+    @media (max-width: 600px) {
+      [data-style="monopo"] .emoji-row__label { width: 100px; }
+    }
+
+    [data-style="monopo"] .energy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 600px) {
+      [data-style="monopo"] .energy-grid { grid-template-columns: 1fr; }
+    }
+
+    [data-style="monopo"] .energy-item {
+      padding: 25px;
+      border: 1px solid #666970;
+      border-radius: 2px;
+    }
+
+    [data-style="monopo"] .energy-item__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    [data-style="monopo"] .energy-item__label {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    [data-style="monopo"] .energy-item__pct {
+      font-size: 22px;
+      font-weight: 700;
+      color: #7f7f7f;
+    }
+
+    [data-style="monopo"] .energy-item__bar-bg {
+      height: 3px;
+      background: rgba(102, 105, 112, 0.3);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    [data-style="monopo"] .energy-item__bar {
+      height: 100%;
+      background: #ffffff;
+      border-radius: 2px;
+    }
+
+    [data-style="monopo"] .week-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+
+    [data-style="monopo"] .week-day__label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 16px;
+      color: #7f7f7f;
+    }
+
+    [data-style="monopo"] .week-day__blocks {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    [data-style="monopo"] .week-block {
+      height: 36px;
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    [data-style="monopo"] .week-block--deep { background: #ffffff; color: #000000; }
+    [data-style="monopo"] .week-block--collab { border: 1px solid #666970; color: #7f7f7f; }
+    [data-style="monopo"] .week-block--async { background: rgba(102, 105, 112, 0.2); color: #7f7f7f; }
+    [data-style="monopo"] .week-block--free { border: 1px dashed rgba(102, 105, 112, 0.4); color: #666970; }
+
+    [data-style="monopo"] .week-legend {
+      display: flex;
+      gap: 25px;
+      margin-top: 25px;
+      flex-wrap: wrap;
+    }
+
+    [data-style="monopo"] .week-legend__item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 300;
+      color: #7f7f7f;
+      letter-spacing: 0.05em;
+    }
+
+    [data-style="monopo"] .week-legend__swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+    }
+
+    [data-style="monopo"] .week-legend__swatch--deep { background: #ffffff; }
+    [data-style="monopo"] .week-legend__swatch--collab { border: 1px solid #666970; }
+    [data-style="monopo"] .week-legend__swatch--async { background: rgba(102, 105, 112, 0.3); }
+
+    [data-style="monopo"] .pull-quote {
+      padding: 56px 0;
+      border-top: 1px solid #666970;
+    }
+
+    [data-style="monopo"] .pull-quote__text {
+      font-size: 22px;
+      font-weight: 300;
+      line-height: 1.5;
+      color: #ffffff;
+      letter-spacing: 0.03em;
+      max-width: 700px;
+    }
+
+    [data-style="monopo"] .pull-quote__source {
+      font-size: 12px;
+      font-weight: 300;
+      color: #666970;
+      margin-top: 16px;
+      text-transform: uppercase;
+    }
+
+    [data-style="monopo"] .project-list { list-style: none; }
+
+    [data-style="monopo"] .project-item {
+      padding: 25px 0;
+      border-bottom: 1px solid #666970;
+    }
+
+    [data-style="monopo"] .project-item:last-child { border-bottom: none; }
+
+    [data-style="monopo"] .project-item__name {
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    [data-style="monopo"] .project-item__desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: #7f7f7f;
+      letter-spacing: 0.03em;
+      line-height: 1.5;
+    }
+
+    [data-style="monopo"] .values-list { list-style: none; }
+
+    [data-style="monopo"] .values-item {
+      padding: 25px 0;
+      border-bottom: 1px solid rgba(102, 105, 112, 0.3);
+    }
+
+    [data-style="monopo"] .values-item:last-child { border-bottom: none; }
+
+    [data-style="monopo"] .values-item__title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    [data-style="monopo"] .values-item__desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: #7f7f7f;
+      letter-spacing: 0.03em;
+      line-height: 1.5;
+    }
+
+    [data-style="monopo"] .vocab-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 56px;
+    }
+
+    @media (max-width: 600px) {
+      [data-style="monopo"] .vocab-grid { grid-template-columns: 1fr; }
+    }
+
+    [data-style="monopo"] .vocab-item {
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(102, 105, 112, 0.3);
+    }
+
+    [data-style="monopo"] .vocab-item__term {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    [data-style="monopo"] .vocab-item__meaning {
+      font-size: 12px;
+      font-weight: 300;
+      color: #7f7f7f;
+      margin-top: 4px;
+      letter-spacing: 0.03em;
+    }
+
+    [data-style="monopo"] .fun-facts {
+      position: relative;
+      padding: 35px;
+      border: 1px solid #666970;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    [data-style="monopo"] .fun-facts__gradient {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, #cc490c, #ce510b, #cf590b, #d15f0a, #d2660a, #ca7619, #c38428, #bb9136, #aca753, #9ac171, #84dc92, #65faca);
+      opacity: 0.05;
+      pointer-events: none;
+    }
+
+    [data-style="monopo"] .fun-facts ul {
+      list-style: none;
+      position: relative;
+    }
+
+    [data-style="monopo"] .fun-facts li {
+      font-size: 14px;
+      font-weight: 300;
+      color: #7f7f7f;
+      padding: 8px 0;
+      line-height: 1.5;
+      letter-spacing: 0.03em;
+    }
+
+    [data-style="monopo"] .fun-facts li::before {
+      content: '\2192';
+      margin-right: 16px;
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    [data-style="monopo"] .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    [data-style="monopo"] .tag {
+      font-size: 12px;
+      font-weight: 400;
+      padding: 8px 18px;
+      border-radius: 42px;
+      border: 1px solid #666970;
+      color: #7f7f7f;
+      text-transform: uppercase;
+    }
+
+    [data-style="monopo"] .footer {
+      padding: 56px 0;
+      border-top: 1px solid #666970;
+      font-size: 12px;
+      font-weight: 300;
+      color: #666970;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    /* ═══════════════════════════════════════
+       EDITORIAL STYLE (warm, light)
+       ═══════════════════════════════════════ */
+    [data-style="editorial"] body {
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      background: #FAFAF8;
+      color: #1A1A1A;
+      line-height: 1.6;
+      letter-spacing: 0;
+      -webkit-font-smoothing: antialiased;
+      padding-top: 48px;
+    }
+
+    [data-style="editorial"] .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    [data-style="editorial"] .hero {
+      padding: 80px 0 64px;
+      position: relative;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    [data-style="editorial"] .hero__gradient {
+      position: absolute;
+      top: -48px;
+      left: -200px;
+      right: -200px;
+      height: 300px;
+      background: linear-gradient(135deg, #D4760A 0%, #E8943D 30%, #F2B872 60%, transparent 100%);
+      opacity: 0.07;
+      pointer-events: none;
+      border-radius: 0 0 50% 50%;
+    }
+
+    [data-style="editorial"] .hero__content { position: relative; }
+
+    [data-style="editorial"] .hero__role {
+      font-size: 13px;
+      font-weight: 500;
+      color: #8C8C8C;
+      letter-spacing: 0.02em;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    [data-style="editorial"] .hero__role::before {
+      content: attr(data-initial);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #D4760A, #E8943D);
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: white;
+    }
+
+    [data-style="editorial"] .hero__name {
+      font-family: 'Fraunces', serif;
+      font-size: 42px;
+      font-weight: 600;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+      text-transform: none;
+    }
+
+    [data-style="editorial"] .hero__intro {
+      font-size: 17px;
+      color: #5C5C5C;
+      line-height: 1.7;
+      max-width: 580px;
+    }
+
+    [data-style="editorial"] .hero__scroll { display: none; }
+
+    [data-style="editorial"] .section {
+      padding: 0;
+      margin-bottom: 56px;
+      border-top: none;
+    }
+
+    [data-style="editorial"] .section__title {
+      font-family: 'Fraunces', serif;
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      text-transform: none;
+      color: #1A1A1A;
+    }
+
+    [data-style="editorial"] .traits {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 560px) {
+      [data-style="editorial"] .traits { grid-template-columns: 1fr; }
+    }
+
+    [data-style="editorial"] .trait {
+      padding: 16px 18px;
+      border-radius: 12px;
+      border: 1px solid #EBEBEB;
+      background: #FFFFFF;
+      transition: box-shadow 0.2s;
+    }
+
+    [data-style="editorial"] .trait:hover {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04);
+    }
+
+    [data-style="editorial"] .trait__icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background: #FFF3E0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    [data-style="editorial"] .trait__icon svg {
+      width: 14px;
+      height: 14px;
+      stroke: #D4760A;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    [data-style="editorial"] .trait__label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1A1A1A;
+      margin-bottom: 4px;
+      text-transform: none;
+    }
+
+    [data-style="editorial"] .trait__desc {
+      font-size: 13px;
+      color: #8C8C8C;
+      line-height: 1.5;
+    }
+
+    [data-style="editorial"] .comm-content p {
+      font-size: 15px;
+      color: #5C5C5C;
+      line-height: 1.75;
+      margin-bottom: 12px;
+    }
+
+    [data-style="editorial"] .flags {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 560px) {
+      [data-style="editorial"] .flags { grid-template-columns: 1fr; }
+    }
+
+    [data-style="editorial"] .flag-group__title {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    [data-style="editorial"] .flag-group__title--green { color: #2E7D32; }
+    [data-style="editorial"] .flag-group__title--red { color: #C62828; }
+
+    [data-style="editorial"] .flag-group ul { list-style: none; }
+
+    [data-style="editorial"] .flag-group li {
+      font-size: 14px;
+      color: #5C5C5C;
+      padding: 6px 0;
+      line-height: 1.5;
+      border-bottom: none;
+    }
+
+    [data-style="editorial"] .flag-group li::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    [data-style="editorial"] .flag-group--green li::before { background: #4CAF50; }
+    [data-style="editorial"] .flag-group--red li::before { background: #E53935; }
+
+    [data-style="editorial"] .emoji-chart {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    [data-style="editorial"] .emoji-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    [data-style="editorial"] .emoji-row__emoji {
+      font-size: 20px;
+      width: 32px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    [data-style="editorial"] .emoji-row__bar-bg {
+      flex: 1;
+      height: 24px;
+      background: #F0F0EE;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    [data-style="editorial"] .emoji-row__bar {
+      height: 100%;
+      border-radius: 6px;
+      background: linear-gradient(90deg, #D4760A, #F2B872);
+    }
+
+    [data-style="editorial"] .emoji-row__label {
+      font-size: 12px;
+      color: #8C8C8C;
+      width: 160px;
+      flex-shrink: 0;
+      text-align: right;
+    }
+
+    @media (max-width: 560px) {
+      [data-style="editorial"] .emoji-row__label { width: 80px; font-size: 11px; }
+    }
+
+    [data-style="editorial"] .energy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 560px) {
+      [data-style="editorial"] .energy-grid { grid-template-columns: 1fr; }
+    }
+
+    [data-style="editorial"] .energy-item {
+      padding: 14px 16px;
+      border-radius: 10px;
+      background: #FFFFFF;
+      border: 1px solid #EBEBEB;
+    }
+
+    [data-style="editorial"] .energy-item__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    [data-style="editorial"] .energy-item__label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1A1A1A;
+      text-transform: none;
+    }
+
+    [data-style="editorial"] .energy-item__pct {
+      font-size: 12px;
+      font-weight: 600;
+      color: #D4760A;
+    }
+
+    [data-style="editorial"] .energy-item__bar-bg {
+      height: 6px;
+      background: #F0F0EE;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    [data-style="editorial"] .energy-item__bar {
+      height: 100%;
+      border-radius: 3px;
+      background: #D4760A;
+    }
+
+    [data-style="editorial"] .week-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+
+    [data-style="editorial"] .week-day__label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #8C8C8C;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    [data-style="editorial"] .week-day__blocks {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    [data-style="editorial"] .week-block {
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: none;
+    }
+
+    [data-style="editorial"] .week-block--deep { background: #D4760A; opacity: 0.85; color: white; }
+    [data-style="editorial"] .week-block--collab { background: #FFF3E0; border: 1px solid #EBEBEB; color: #D4760A; }
+    [data-style="editorial"] .week-block--async { background: #F0F0EE; color: #4A4A4A; }
+    [data-style="editorial"] .week-block--free { background: transparent; border: 1px dashed #EBEBEB; color: #8C8C8C; opacity: 0.5; }
+
+    [data-style="editorial"] .week-legend {
+      display: flex;
+      gap: 16px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    [data-style="editorial"] .week-legend__item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: #8C8C8C;
+    }
+
+    [data-style="editorial"] .week-legend__swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+    }
+
+    [data-style="editorial"] .week-legend__swatch--deep { background: #D4760A; opacity: 0.85; }
+    [data-style="editorial"] .week-legend__swatch--collab { background: #FFF3E0; border: 1px solid #EBEBEB; }
+    [data-style="editorial"] .week-legend__swatch--async { background: #F0F0EE; }
+
+    [data-style="editorial"] .pull-quote {
+      padding: 20px 24px;
+      margin: 40px 0;
+      border-radius: 12px;
+      border: 1px solid #EBEBEB;
+      border-left: 3px solid #D4760A;
+      background: #FFFFFF;
+    }
+
+    [data-style="editorial"] .pull-quote__text {
+      font-size: 15px;
+      color: #5C5C5C;
+      font-style: italic;
+      line-height: 1.7;
+    }
+
+    [data-style="editorial"] .pull-quote__source {
+      font-size: 12px;
+      color: #8C8C8C;
+      margin-top: 10px;
+      font-style: normal;
+      text-transform: none;
+    }
+
+    [data-style="editorial"] .project-list { list-style: none; }
+
+    [data-style="editorial"] .project-item {
+      padding: 12px 0;
+      border-bottom: 1px solid #F5F5F3;
+    }
+
+    [data-style="editorial"] .project-item:last-child { border-bottom: none; }
+
+    [data-style="editorial"] .project-item__name {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1A1A1A;
+      text-transform: none;
+      margin-bottom: 2px;
+    }
+
+    [data-style="editorial"] .project-item__desc {
+      font-size: 14px;
+      color: #5C5C5C;
+      line-height: 1.6;
+    }
+
+    [data-style="editorial"] .values-list { list-style: none; }
+
+    [data-style="editorial"] .values-item {
+      padding: 12px 0;
+      border-bottom: 1px solid #F5F5F3;
+    }
+
+    [data-style="editorial"] .values-item:last-child { border-bottom: none; }
+
+    [data-style="editorial"] .values-item__title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1A1A1A;
+      margin-bottom: 2px;
+    }
+
+    [data-style="editorial"] .values-item__desc {
+      font-size: 14px;
+      color: #5C5C5C;
+      line-height: 1.6;
+    }
+
+    [data-style="editorial"] .vocab-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 24px;
+    }
+
+    @media (max-width: 560px) {
+      [data-style="editorial"] .vocab-grid { grid-template-columns: 1fr; }
+    }
+
+    [data-style="editorial"] .vocab-item {
+      padding: 8px 0;
+      border-bottom: 1px solid #F5F5F3;
+    }
+
+    [data-style="editorial"] .vocab-item__term {
+      font-size: 14px;
+      font-weight: 600;
+      color: #D4760A;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+
+    [data-style="editorial"] .vocab-item__meaning {
+      font-size: 13px;
+      color: #8C8C8C;
+      margin-top: 2px;
+    }
+
+    [data-style="editorial"] .fun-facts {
+      padding: 20px 24px;
+      border-radius: 12px;
+      background: #FFF3E0;
+      border: 1px solid #EBEBEB;
+      position: relative;
+      overflow: hidden;
+    }
+
+    [data-style="editorial"] .fun-facts__gradient { display: none; }
+
+    [data-style="editorial"] .fun-facts ul { list-style: none; }
+
+    [data-style="editorial"] .fun-facts li {
+      font-size: 14px;
+      color: #5C5C5C;
+      padding: 6px 0;
+      line-height: 1.6;
+    }
+
+    [data-style="editorial"] .fun-facts li::before {
+      content: '\2192';
+      margin-right: 10px;
+      color: #D4760A;
+      font-weight: 600;
+    }
+
+    [data-style="editorial"] .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    [data-style="editorial"] .tag {
+      font-size: 13px;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 6px;
+      background: #F0F0EE;
+      color: #4A4A4A;
+      border: none;
+      text-transform: none;
+    }
+
+    [data-style="editorial"] .footer {
+      margin-top: 80px;
+      padding: 32px 0;
+      border-top: 1px solid #EBEBEB;
+      font-size: 13px;
+      color: #8C8C8C;
+      text-align: center;
+      text-transform: none;
+    }
+
+    /* ═══════════════════════════════════════
+       LOTTIE STYLE (playful, teal accent)
+       ═══════════════════════════════════════ */
+    [data-style="lottie"] body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #ffffff;
+      color: #09090b;
+      line-height: 1.5;
+      letter-spacing: -0.01em;
+      -webkit-font-smoothing: antialiased;
+      padding-top: 48px;
+    }
+
+    [data-style="lottie"] .page {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    [data-style="lottie"] .hero {
+      padding: 96px 24px 80px;
+      text-align: center;
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    [data-style="lottie"] .hero__gradient {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(1,157,145,0.08) 0%, rgba(0,221,179,0.04) 40%, transparent 70%);
+      pointer-events: none;
+      border-radius: 50%;
+    }
+
+    [data-style="lottie"] .hero__content { position: relative; }
+
+    [data-style="lottie"] .hero__role {
+      font-size: 14px;
+      font-weight: 500;
+      color: #019d91;
+      margin-bottom: 16px;
+      text-transform: none;
+    }
+
+    [data-style="lottie"] .hero__name {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 48px;
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -1.44px;
+      margin-bottom: 24px;
+      text-transform: none;
+      color: #09090b;
+    }
+
+    [data-style="lottie"] .hero__intro {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.6;
+      color: #71717b;
+      max-width: 560px;
+      margin: 0 auto;
+      letter-spacing: -0.01em;
+    }
+
+    [data-style="lottie"] .hero__scroll { display: none; }
+
+    [data-style="lottie"] .section {
+      padding: 0;
+      margin-bottom: 64px;
+      border-top: none;
+    }
+
+    [data-style="lottie"] .section__title {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      line-height: 1.56;
+      margin-bottom: 24px;
+      text-transform: none;
+      color: #09090b;
+    }
+
+    [data-style="lottie"] .traits {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 700px) {
+      [data-style="lottie"] .traits { grid-template-columns: 1fr; }
+    }
+
+    [data-style="lottie"] .trait {
+      padding: 24px;
+      border-radius: 16px;
+      background: #ffffff;
+      border: 1px solid #e4e4e7;
+      box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    [data-style="lottie"] .trait:hover {
+      box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px 0px;
+      transform: translateY(-2px);
+    }
+
+    [data-style="lottie"] .trait__icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(1, 157, 145, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    [data-style="lottie"] .trait__icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: #019d91;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    [data-style="lottie"] .trait__label {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: #09090b;
+      margin-bottom: 6px;
+      text-transform: none;
+    }
+
+    [data-style="lottie"] .trait__desc {
+      font-size: 14px;
+      font-weight: 400;
+      color: #71717b;
+      line-height: 1.6;
+      letter-spacing: 0;
+    }
+
+    [data-style="lottie"] .comm-content p {
+      font-size: 16px;
+      font-weight: 400;
+      color: #71717b;
+      line-height: 1.7;
+      letter-spacing: 0;
+      margin-bottom: 16px;
+      max-width: 650px;
+    }
+
+    [data-style="lottie"] .flags {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    @media (max-width: 600px) {
+      [data-style="lottie"] .flags { grid-template-columns: 1fr; }
+    }
+
+    [data-style="lottie"] .flag-group__title {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: none;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e4e4e7;
+    }
+
+    [data-style="lottie"] .flag-group__title--green { color: #019d91; border-color: #019d91; }
+    [data-style="lottie"] .flag-group__title--red { color: #e53935; border-color: #e53935; }
+
+    [data-style="lottie"] .flag-group ul { list-style: none; }
+
+    [data-style="lottie"] .flag-group li {
+      font-size: 14px;
+      font-weight: 400;
+      color: #71717b;
+      padding: 8px 0;
+      line-height: 1.6;
+      letter-spacing: 0;
+      border-bottom: 1px solid #f4f4f5;
+    }
+
+    [data-style="lottie"] .flag-group li:last-child { border-bottom: none; }
+
+    [data-style="lottie"] .emoji-chart { display: flex; flex-direction: column; gap: 12px; }
+    [data-style="lottie"] .emoji-row { display: flex; align-items: center; gap: 12px; }
+    [data-style="lottie"] .emoji-row__emoji { font-size: 22px; width: 36px; text-align: center; flex-shrink: 0; }
+    [data-style="lottie"] .emoji-row__bar-bg { flex: 1; height: 20px; background: #f4f4f5; border-radius: 10px; overflow: hidden; }
+    [data-style="lottie"] .emoji-row__bar { height: 100%; border-radius: 10px; background: linear-gradient(90deg, #019d91, #00ddb3); }
+    [data-style="lottie"] .emoji-row__label { font-size: 12px; font-weight: 400; color: #9f9fa9; width: 160px; flex-shrink: 0; text-align: right; }
+
+    @media (max-width: 600px) {
+      [data-style="lottie"] .emoji-row__label { width: 90px; }
+    }
+
+    [data-style="lottie"] .energy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 600px) { [data-style="lottie"] .energy-grid { grid-template-columns: 1fr; } }
+    [data-style="lottie"] .energy-item { padding: 24px; border-radius: 16px; background: #ffffff; border: 1px solid #e4e4e7; box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px; }
+    [data-style="lottie"] .energy-item__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    [data-style="lottie"] .energy-item__label { font-size: 14px; font-weight: 600; color: #09090b; text-transform: none; }
+    [data-style="lottie"] .energy-item__pct { font-family: 'DM Sans', system-ui, sans-serif; font-size: 20px; font-weight: 600; color: #019d91; }
+    [data-style="lottie"] .energy-item__bar-bg { height: 6px; background: #f4f4f5; border-radius: 3px; overflow: hidden; }
+    [data-style="lottie"] .energy-item__bar { height: 100%; background: #019d91; border-radius: 3px; }
+
+    [data-style="lottie"] .week-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+    [data-style="lottie"] .week-day__label { font-size: 12px; font-weight: 600; text-align: center; margin-bottom: 10px; color: #9f9fa9; text-transform: uppercase; letter-spacing: 0.03em; }
+    [data-style="lottie"] .week-day__blocks { display: flex; flex-direction: column; gap: 4px; }
+    [data-style="lottie"] .week-block { height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
+    [data-style="lottie"] .week-block--deep { background: #019d91; color: #ffffff; }
+    [data-style="lottie"] .week-block--collab { background: rgba(1, 157, 145, 0.1); color: #019d91; border: 1px solid rgba(1, 157, 145, 0.2); }
+    [data-style="lottie"] .week-block--async { background: #f4f4f5; color: #71717b; }
+    [data-style="lottie"] .week-block--free { border: 1px dashed #e4e4e7; color: #9f9fa9; }
+
+    [data-style="lottie"] .week-legend { display: flex; gap: 20px; margin-top: 20px; flex-wrap: wrap; }
+    [data-style="lottie"] .week-legend__item { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 400; color: #71717b; }
+    [data-style="lottie"] .week-legend__swatch { width: 12px; height: 12px; border-radius: 4px; }
+    [data-style="lottie"] .week-legend__swatch--deep { background: #019d91; }
+    [data-style="lottie"] .week-legend__swatch--collab { background: rgba(1, 157, 145, 0.1); border: 1px solid rgba(1, 157, 145, 0.2); }
+    [data-style="lottie"] .week-legend__swatch--async { background: #f4f4f5; }
+
+    [data-style="lottie"] .pull-quote { padding: 32px; margin: 48px 0; border-radius: 16px; background: #f4f4f5; border: none; }
+    [data-style="lottie"] .pull-quote__text { font-family: 'DM Sans', system-ui, sans-serif; font-size: 20px; font-weight: 500; line-height: 1.5; color: #09090b; letter-spacing: -0.3px; }
+    [data-style="lottie"] .pull-quote__source { font-size: 13px; font-weight: 400; color: #9f9fa9; margin-top: 12px; text-transform: none; }
+
+    [data-style="lottie"] .project-list { list-style: none; }
+    [data-style="lottie"] .project-item { padding: 20px 0; border-bottom: 1px solid #e4e4e7; }
+    [data-style="lottie"] .project-item:last-child { border-bottom: none; }
+    [data-style="lottie"] .project-item__name { font-family: 'DM Sans', system-ui, sans-serif; font-size: 16px; font-weight: 600; color: #09090b; text-transform: none; margin-bottom: 4px; }
+    [data-style="lottie"] .project-item__desc { font-size: 14px; font-weight: 400; color: #71717b; line-height: 1.6; letter-spacing: 0; }
+
+    [data-style="lottie"] .values-list { list-style: none; }
+    [data-style="lottie"] .values-item { padding: 20px 0; border-bottom: 1px solid #f4f4f5; }
+    [data-style="lottie"] .values-item:last-child { border-bottom: none; }
+    [data-style="lottie"] .values-item__title { font-family: 'DM Sans', system-ui, sans-serif; font-size: 16px; font-weight: 600; color: #09090b; margin-bottom: 4px; }
+    [data-style="lottie"] .values-item__desc { font-size: 14px; font-weight: 400; color: #71717b; line-height: 1.6; letter-spacing: 0; }
+
+    [data-style="lottie"] .vocab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 32px; }
+    @media (max-width: 600px) { [data-style="lottie"] .vocab-grid { grid-template-columns: 1fr; } }
+    [data-style="lottie"] .vocab-item { padding: 12px 0; border-bottom: 1px solid #f4f4f5; }
+    [data-style="lottie"] .vocab-item__term { font-size: 14px; font-weight: 600; color: #019d91; }
+    [data-style="lottie"] .vocab-item__meaning { font-size: 13px; font-weight: 400; color: #9f9fa9; margin-top: 2px; }
+
+    [data-style="lottie"] .fun-facts { padding: 32px; border-radius: 16px; background: linear-gradient(135deg, rgba(1,157,145,0.05), rgba(0,221,179,0.05)); border: 1px solid #e4e4e7; position: relative; overflow: hidden; }
+    [data-style="lottie"] .fun-facts__gradient { display: none; }
+    [data-style="lottie"] .fun-facts ul { list-style: none; }
+    [data-style="lottie"] .fun-facts li { font-size: 14px; font-weight: 400; color: #71717b; padding: 8px 0; line-height: 1.6; letter-spacing: 0; }
+    [data-style="lottie"] .fun-facts li::before { content: '\2192'; margin-right: 12px; color: #019d91; font-weight: 600; }
+
+    [data-style="lottie"] .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    [data-style="lottie"] .tag { font-size: 13px; font-weight: 500; padding: 6px 16px; border-radius: 12px; background: #f4f4f5; color: #71717b; border: none; text-transform: none; }
+
+    [data-style="lottie"] .footer { margin-top: 80px; padding: 32px 0; border-top: 1px solid #e4e4e7; font-size: 13px; color: #9f9fa9; text-align: center; text-transform: none; }
+  </style>
+</head>
+<body>
+  <!-- Style Toggle -->
+  <div class="style-toggle">
+    <span class="style-toggle__label">Style</span>
+    <button class="style-toggle__btn" data-style="monopo">Monopo</button>
+    <button class="style-toggle__btn active" data-style="editorial">Editorial</button>
+    <button class="style-toggle__btn" data-style="lottie">Lottie</button>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__gradient"></div>
+    <div class="hero__content">
+      <div class="hero__role" data-initial="Y">[Your Title], [Your Team]</div>
+      <h1 class="hero__name">Working with<br>[Your Name]</h1>
+      <p class="hero__intro">[A 1-2 sentence intro about what you do and how you approach your work. What should people know about you at a glance?]</p>
+    </div>
+    <div class="hero__scroll">Scroll</div>
+  </section>
+
+  <div class="page">
+    <!-- Traits -->
+    <section class="section">
+      <h2 class="section__title">Traits</h2>
+      <div class="traits">
+        <div class="trait">
+          <div class="trait__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+          <div class="trait__label">[Trait 1]</div>
+          <div class="trait__desc">[Short description of how this trait shows up in your work]</div>
+        </div>
+        <div class="trait">
+          <div class="trait__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><polyline points="5 12 12 5 19 12"/></svg></div>
+          <div class="trait__label">[Trait 2]</div>
+          <div class="trait__desc">[Short description]</div>
+        </div>
+        <div class="trait">
+          <div class="trait__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div>
+          <div class="trait__label">[Trait 3]</div>
+          <div class="trait__desc">[Short description]</div>
+        </div>
+        <div class="trait">
+          <div class="trait__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+          <div class="trait__label">[Trait 4]</div>
+          <div class="trait__desc">[Short description]</div>
+        </div>
+        <div class="trait">
+          <div class="trait__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+          <div class="trait__label">[Trait 5]</div>
+          <div class="trait__desc">[Short description]</div>
+        </div>
+        <div class="trait">
+          <div class="trait__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+          <div class="trait__label">[Trait 6]</div>
+          <div class="trait__desc">[Short description]</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Communication -->
+    <section class="section">
+      <h2 class="section__title">How I communicate</h2>
+      <div class="comm-content">
+        <p>[How do you prefer to communicate? Async vs sync? How do you share work?]</p>
+        <p>[How do you seek or give feedback? What format works best?]</p>
+        <p>[Any patterns people should know about your availability or response time?]</p>
+      </div>
+    </section>
+
+    <!-- Pull quote -->
+    <div class="pull-quote">
+      <div class="pull-quote__text">"[A real quote from you — something from Slack that captures your personality]"</div>
+      <div class="pull-quote__source">[Source — e.g. a channel name or "Actual Slack message"]</div>
+    </div>
+
+    <!-- How to work with me -->
+    <section class="section">
+      <h2 class="section__title">How to work with me</h2>
+      <div class="flags">
+        <div class="flag-group flag-group--green">
+          <div class="flag-group__title flag-group__title--green">What works</div>
+          <ul>
+            <li>[Thing that helps you do your best work]</li>
+            <li>[Another thing]</li>
+            <li>[Another thing]</li>
+            <li>[Another thing]</li>
+            <li>[Another thing]</li>
+            <li>[Another thing]</li>
+          </ul>
+        </div>
+        <div class="flag-group flag-group--red">
+          <div class="flag-group__title flag-group__title--red">What slows me down</div>
+          <ul>
+            <li>[Thing that frustrates or blocks you]</li>
+            <li>[Another thing]</li>
+            <li>[Another thing]</li>
+            <li>[Another thing]</li>
+            <li>[Another thing]</li>
+            <li>[Another thing]</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Emoji personality -->
+    <section class="section">
+      <h2 class="section__title">Emoji personality</h2>
+      <div class="emoji-chart">
+        <div class="emoji-row">
+          <span class="emoji-row__emoji">[emoji]</span>
+          <div class="emoji-row__bar-bg"><div class="emoji-row__bar" style="width: 90%"></div></div>
+          <span class="emoji-row__label">[What it means when you use it]</span>
+        </div>
+        <div class="emoji-row">
+          <span class="emoji-row__emoji">[emoji]</span>
+          <div class="emoji-row__bar-bg"><div class="emoji-row__bar" style="width: 75%"></div></div>
+          <span class="emoji-row__label">[What it means]</span>
+        </div>
+        <div class="emoji-row">
+          <span class="emoji-row__emoji">[emoji]</span>
+          <div class="emoji-row__bar-bg"><div class="emoji-row__bar" style="width: 60%"></div></div>
+          <span class="emoji-row__label">[What it means]</span>
+        </div>
+        <div class="emoji-row">
+          <span class="emoji-row__emoji">[emoji]</span>
+          <div class="emoji-row__bar-bg"><div class="emoji-row__bar" style="width: 50%"></div></div>
+          <span class="emoji-row__label">[What it means]</span>
+        </div>
+        <div class="emoji-row">
+          <span class="emoji-row__emoji">[emoji]</span>
+          <div class="emoji-row__bar-bg"><div class="emoji-row__bar" style="width: 40%"></div></div>
+          <span class="emoji-row__label">[What it means]</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Energy -->
+    <section class="section">
+      <h2 class="section__title">Where my energy goes</h2>
+      <div class="energy-grid">
+        <div class="energy-item">
+          <div class="energy-item__header">
+            <span class="energy-item__label">[Activity 1]</span>
+            <span class="energy-item__pct">35%</span>
+          </div>
+          <div class="energy-item__bar-bg"><div class="energy-item__bar" style="width: 35%"></div></div>
+        </div>
+        <div class="energy-item">
+          <div class="energy-item__header">
+            <span class="energy-item__label">[Activity 2]</span>
+            <span class="energy-item__pct">25%</span>
+          </div>
+          <div class="energy-item__bar-bg"><div class="energy-item__bar" style="width: 25%"></div></div>
+        </div>
+        <div class="energy-item">
+          <div class="energy-item__header">
+            <span class="energy-item__label">[Activity 3]</span>
+            <span class="energy-item__pct">20%</span>
+          </div>
+          <div class="energy-item__bar-bg"><div class="energy-item__bar" style="width: 20%"></div></div>
+        </div>
+        <div class="energy-item">
+          <div class="energy-item__header">
+            <span class="energy-item__label">[Activity 4]</span>
+            <span class="energy-item__pct">20%</span>
+          </div>
+          <div class="energy-item__bar-bg"><div class="energy-item__bar" style="width: 20%"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Weekly rhythm -->
+    <section class="section">
+      <h2 class="section__title">My week</h2>
+      <div class="week-grid">
+        <div class="week-day">
+          <div class="week-day__label">Mon</div>
+          <div class="week-day__blocks">
+            <div class="week-block week-block--async">Async</div>
+            <div class="week-block week-block--deep">Deep</div>
+            <div class="week-block week-block--deep">Deep</div>
+          </div>
+        </div>
+        <div class="week-day">
+          <div class="week-day__label">Tue</div>
+          <div class="week-day__blocks">
+            <div class="week-block week-block--collab">Collab</div>
+            <div class="week-block week-block--collab">Collab</div>
+            <div class="week-block week-block--deep">Deep</div>
+          </div>
+        </div>
+        <div class="week-day">
+          <div class="week-day__label">Wed</div>
+          <div class="week-day__blocks">
+            <div class="week-block week-block--deep">Deep</div>
+            <div class="week-block week-block--deep">Deep</div>
+            <div class="week-block week-block--async">Async</div>
+          </div>
+        </div>
+        <div class="week-day">
+          <div class="week-day__label">Thu</div>
+          <div class="week-day__blocks">
+            <div class="week-block week-block--collab">Collab</div>
+            <div class="week-block week-block--deep">Deep</div>
+            <div class="week-block week-block--collab">Collab</div>
+          </div>
+        </div>
+        <div class="week-day">
+          <div class="week-day__label">Fri</div>
+          <div class="week-day__blocks">
+            <div class="week-block week-block--async">Async</div>
+            <div class="week-block week-block--deep">Deep</div>
+            <div class="week-block week-block--free">Flex</div>
+          </div>
+        </div>
+      </div>
+      <div class="week-legend">
+        <div class="week-legend__item"><div class="week-legend__swatch week-legend__swatch--deep"></div>Deep work</div>
+        <div class="week-legend__item"><div class="week-legend__swatch week-legend__swatch--collab"></div>Meetings / collaboration</div>
+        <div class="week-legend__item"><div class="week-legend__swatch week-legend__swatch--async"></div>Async / messages</div>
+      </div>
+    </section>
+
+    <!-- Pull quote -->
+    <div class="pull-quote">
+      <div class="pull-quote__text">"[Another real quote that shows your personality or humor]"</div>
+      <div class="pull-quote__source">[Source]</div>
+    </div>
+
+    <!-- Projects -->
+    <section class="section">
+      <h2 class="section__title">Current work</h2>
+      <ul class="project-list">
+        <li class="project-item">
+          <div class="project-item__name">[Project 1]</div>
+          <div class="project-item__desc">[Brief description of what you're working on]</div>
+        </li>
+        <li class="project-item">
+          <div class="project-item__name">[Project 2]</div>
+          <div class="project-item__desc">[Brief description]</div>
+        </li>
+        <li class="project-item">
+          <div class="project-item__name">[Project 3]</div>
+          <div class="project-item__desc">[Brief description]</div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Values -->
+    <section class="section">
+      <h2 class="section__title">What I care about</h2>
+      <ul class="values-list">
+        <li class="values-item">
+          <div class="values-item__title">[Value 1]</div>
+          <div class="values-item__desc">[Why this matters to you and how it shows up in your work]</div>
+        </li>
+        <li class="values-item">
+          <div class="values-item__title">[Value 2]</div>
+          <div class="values-item__desc">[Why and how]</div>
+        </li>
+        <li class="values-item">
+          <div class="values-item__title">[Value 3]</div>
+          <div class="values-item__desc">[Why and how]</div>
+        </li>
+        <li class="values-item">
+          <div class="values-item__title">[Value 4]</div>
+          <div class="values-item__desc">[Why and how]</div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Pull quote -->
+    <div class="pull-quote">
+      <div class="pull-quote__text">"[A third quote — maybe something insightful or funny you said]"</div>
+      <div class="pull-quote__source">[Source]</div>
+    </div>
+
+    <!-- Vocabulary -->
+    <section class="section">
+      <h2 class="section__title">Vocabulary</h2>
+      <div class="vocab-grid">
+        <div class="vocab-item">
+          <div class="vocab-item__term">"[phrase you say]"</div>
+          <div class="vocab-item__meaning">[What you mean by it]</div>
+        </div>
+        <div class="vocab-item">
+          <div class="vocab-item__term">"[phrase]"</div>
+          <div class="vocab-item__meaning">[Meaning]</div>
+        </div>
+        <div class="vocab-item">
+          <div class="vocab-item__term">"[phrase]"</div>
+          <div class="vocab-item__meaning">[Meaning]</div>
+        </div>
+        <div class="vocab-item">
+          <div class="vocab-item__term">"[phrase]"</div>
+          <div class="vocab-item__meaning">[Meaning]</div>
+        </div>
+        <div class="vocab-item">
+          <div class="vocab-item__term">"[phrase]"</div>
+          <div class="vocab-item__meaning">[Meaning]</div>
+        </div>
+        <div class="vocab-item">
+          <div class="vocab-item__term">"[phrase]"</div>
+          <div class="vocab-item__meaning">[Meaning]</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Fun facts -->
+    <section class="section">
+      <h2 class="section__title">Fun facts</h2>
+      <div class="fun-facts">
+        <div class="fun-facts__gradient"></div>
+        <ul>
+          <li>[Something fun or surprising about you]</li>
+          <li>[Another fun fact]</li>
+          <li>[Another one]</li>
+          <li>[Another one]</li>
+          <li>[Another one]</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Channels -->
+    <section class="section">
+      <h2 class="section__title">Where to find me</h2>
+      <div class="tags">
+        <span class="tag">#[channel-1]</span>
+        <span class="tag">#[channel-2]</span>
+        <span class="tag">#[channel-3]</span>
+        <span class="tag">#[channel-4]</span>
+        <span class="tag">#[channel-5]</span>
+      </div>
+    </section>
+
+    <div class="footer">Built with Claude Code</div>
+  </div>
+
+  <script>
+    var buttons = document.querySelectorAll('.style-toggle__btn');
+    var html = document.documentElement;
+
+    buttons.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var style = btn.dataset.style;
+        html.setAttribute('data-style', style);
+        buttons.forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -7,20 +7,18 @@ This is a **User Manual Kit** — a starter template for building a personal "Wo
 ```
 /
 ├── index.html          # The user manual (single-page, self-contained HTML)
-├── designs/            # Design directives Claude reads to restyle the page
-│   ├── monopo.md       # Dark, typographic, agency-inspired
-│   ├── editorial.md    # Warm, light, editorial magazine feel
-│   └── lottie.md       # Clean, playful, teal accents
+├── designs/
+│   └── editorial.md    # Design philosophy for the default Editorial style
 ├── CLAUDE.md           # This file — instructions for Claude Code
 ├── README.md           # Getting started guide
 └── .claude/
-    └── settings.local.json  # Pre-configured permissions + MCP servers
+    └── settings.local.json  # Pre-configured permissions
 ```
 
 ## How This Works
 
 The `index.html` file is a complete, self-contained user manual with:
-- A style toggle bar at the top (3 built-in visual themes)
+- The Editorial visual style (warm, light, magazine feel)
 - All CSS embedded in `<style>` tags (no external dependencies except Google Fonts)
 - Placeholder content in `[brackets]` that Claude fills in from Slack profile data and conversation
 
@@ -37,9 +35,8 @@ When a user opens this project in Claude Code, the typical flow is:
 ## Editing the Page
 
 - This is a single HTML file. Edit it directly — there is no build step.
-- All styles are in the `<style>` block at the top, organized by theme using `[data-style="name"]` selectors.
+- All styles are in the `<style>` block at the top.
 - Content is plain HTML in the `<body>`. Each section uses semantic class names.
-- The style toggle at the top switches `data-style` on `<html>` to swap themes live.
 
 ## Using Slack MCP
 
@@ -56,14 +53,14 @@ When populating content:
 - Update `data-initial` attribute on `.hero__role` with their first name's initial
 - Update the `<title>` tag
 
-## Applying a Design
+## Applying a Different Design
 
-The `designs/` folder contains markdown files describing each visual style. If the user wants to:
-- **Switch the default style**: Change the `data-style` attribute on `<html>` in `index.html`
-- **Customize a style**: Read the relevant `designs/*.md` for the design philosophy, then modify the CSS
-- **Create a new style**: Use an existing design file as a reference for the required CSS selectors
+Alternative visual styles (Monopo, Lottie) are available in the Figma file:
+https://www.figma.com/design/AyUuvVdN3dTKaCtaUSSBZ2/Personal-User-Manual-Templates
 
-The HTML structure (class names, nesting) stays the same across all themes — only the CSS changes per `[data-style]` selector.
+If the user wants to restyle the page, use the Figma MCP (`get_design_context` or `get_screenshot`) to read the target design from the Figma file, then rewrite the CSS in `index.html` to match. Keep the HTML structure (class names, nesting) the same — only change the CSS.
+
+The `designs/editorial.md` file documents the philosophy behind the default style.
 
 ## Sections Reference
 

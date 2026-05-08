@@ -161,14 +161,6 @@ You can check the status of your GitHub Pages deployment with:
 gh api repos/YOUR_USERNAME/user-manual-kit/pages
 ```
 
-### Custom domain (optional)
-
-If you want to use a custom domain:
-
-1. Go to **Settings** > **Pages** > **Custom domain**
-2. Enter your domain (e.g., `manual.yourdomain.com`)
-3. Add a CNAME record with your DNS provider pointing to `YOUR_USERNAME.github.io`
-4. Wait for DNS propagation and HTTPS provisioning (can take up to 24 hours)
 
 ### Troubleshooting Pages
 
